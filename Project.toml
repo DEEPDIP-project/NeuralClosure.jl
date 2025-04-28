@@ -1,6 +1,6 @@
 name = "NeuralClosure"
 uuid = "099dac27-d7f2-4047-93d5-0baee36b9c25"
-authors = ["Syver Døving Agdestein <syverda@gmail.com>"]
+authors = ["Syver Døving Agdestein <syverda@gmail.com>, Simone Ciarella <simoneciarella@gmail.com>"]
 version = "1.0.0"
 
 [deps]
@@ -25,7 +25,7 @@ Zygote = "e88e6eb3-aa80-5325-afca-941959d7151f"
 Accessors = "0.1"
 ComponentArrays = "0.15"
 DocStringExtensions = "0.9"
-IncompressibleNavierStokes = "2"
+IncompressibleNavierStokes = "3.0.0"
 JLD2 = "0.5"
 KernelAbstractions = "0.9"
 LinearAlgebra = "1"
