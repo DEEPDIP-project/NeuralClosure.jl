@@ -113,7 +113,8 @@ create_relerr_prior(f, x, y) = θ -> norm(f(x, θ) - y) / norm(y)
 """
 Create a-posteriori loss function.
 """
-function create_loss_post(; setup, method, psolver, closure_model, nsubstep = 1)
+function create_loss_post(; setup, method, psolver, closure, nsubstep = 1)
+    closure_model = wrappedclosure(closure, setup)
     setup = (; setup..., closure_model)
     (; Iu) = setup.grid
     inside = Iu[1]
@@ -152,7 +153,6 @@ function create_relerr_post(; data, setup, method, psolver, closure_model, nsubs
     v = selectdim(u, ndims(u), 1) |> copy
     cache = IncompressibleNavierStokes.ode_method_cache(method, setup)
     function relerr_post(θ)
-        t0 = time()
         T = eltype(u)
         copyto!(v, selectdim(u, ndims(u), 1))
         stepper = create_stepper(method; setup, psolver, u = v, temp = nothing, t = t[1])
@@ -169,7 +169,7 @@ function create_relerr_post(; data, setup, method, psolver, closure_model, nsubs
             b = sum(abs2, uref)
             e += sqrt(a) / sqrt(b)
         end
-        return e / (length(t) - 1), time()-t0
+        e / (length(t) - 1)
     end
 end
 
